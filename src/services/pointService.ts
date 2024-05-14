@@ -18,7 +18,7 @@ export default class PointService {
     uf: string,
     cidade: string,
     page: number = 1,
-    limit: number = 10
+    limit: number = 15
   ) => {
     const points = await this.pointODM.getPoints(uf, cidade, page, limit);
     return points.map(this.createPoint);
