@@ -33,10 +33,13 @@ export default class PointController {
 
   public getPoints = async () => {
     try {
-      const { uf, cidade } = this.req.params;
-      const { page, limit } = this.req.body;
+      const { uf, cidade, page } = this.req.params;
 
-      const points = await this.pointService.getPoints(uf, cidade, page, limit);
+      const points = await this.pointService.getPoints(
+        uf,
+        cidade,
+        parseInt(page)
+      );
 
       return this.res.status(200).json(points);
     } catch (error: any) {

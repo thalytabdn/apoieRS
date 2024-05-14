@@ -7,7 +7,7 @@ router.post("/points", (req, res, next) =>
   new pointController(req, res, next).create()
 );
 
-router.get("/points/:uf/:cidade", (req, res, next) =>
+router.get("/points/:uf/:cidade/:page", (req, res, next) =>
   new pointController(req, res, next).getPoints()
 );
 
