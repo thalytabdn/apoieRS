@@ -40,4 +40,14 @@ export default class PointODM {
   async delete(id: string) {
     return this.model.findByIdAndDelete(id);
   }
+
+  countPoints = async (uf: string, cidade: string) => {
+    const count = await this.model.countDocuments({ uf, cidade });
+    return count;
+  };
+
+  countAllPoints = async () => {
+    const count = await this.model.countDocuments();
+    return count;
+  };
 }

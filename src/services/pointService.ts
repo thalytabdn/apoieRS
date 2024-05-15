@@ -20,13 +20,25 @@ export default class PointService {
     page: number = 1,
     limit: number = 15
   ) => {
+    const totalElements = await this.pointODM.countPoints(uf, cidade);
+    const totalPages = Math.ceil(totalElements / limit);
     const points = await this.pointODM.getPoints(uf, cidade, page, limit);
-    return points.map(this.createPoint);
+    return {
+      totalPages,
+      totalElements,
+      data: points.map(this.createPoint),
+    };
   };
 
   getAllPoints = async (page: number = 1, limit: number = 10) => {
+    const totalElements = await this.pointODM.countAllPoints();
+    const totalPages = Math.ceil(totalElements / limit);
     const points = await this.pointODM.getAllPoints(page, limit);
-    return points.map(this.createPoint);
+    return {
+      totalPages,
+      totalElements,
+      data: points.map(this.createPoint),
+    };
   };
 
   update = async (id: string, point: IPoint) => {
