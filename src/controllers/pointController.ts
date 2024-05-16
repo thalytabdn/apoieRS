@@ -21,6 +21,10 @@ export default class PointController {
 
       const createdPoint = await this.pointService.create(point);
 
+      if (!createdPoint) {
+        return this.res.status(400).json({ message: "Point already exists" });
+      }
+
       return this.res
         .status(201)
         .json({ message: "Point created", point: createdPoint });

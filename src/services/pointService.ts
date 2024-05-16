@@ -9,9 +9,21 @@ export default class PointService {
     return new Point(point);
   }
 
-  create = async (point: IPoint) => {
-    const newPoint = await this.pointODM.create(point);
-    return this.createPoint(newPoint);
+  public create = async (point: IPoint) => {
+    const existingPoint = await this.pointODM.findPointByAddress(
+      point.rua,
+      point.numero,
+      point.bairro,
+      point.cidade,
+      point.uf
+    );
+
+    if (existingPoint) {
+      return;
+    }
+
+    const createdPoint = await this.pointODM.create(point);
+    return this.createPoint(createdPoint);
   };
 
   getPoints = async (

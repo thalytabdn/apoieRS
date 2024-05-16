@@ -50,4 +50,15 @@ export default class PointODM {
     const count = await this.model.countDocuments();
     return count;
   };
+
+  findPointByAddress = async (
+    rua: string,
+    numero: string,
+    bairro: string,
+    cidade: string,
+    uf: string
+  ) => {
+    const point = await this.model.findOne({ rua, numero, bairro, cidade, uf });
+    return point;
+  };
 }
