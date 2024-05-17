@@ -1,3 +1,5 @@
+import fs from "fs";
+import https from "https";
 import mongoose from "mongoose";
 import app from "./app";
 import dotenv from "dotenv";
@@ -18,4 +20,11 @@ mongoose
     console.log(`Error in DB connection`, err.message);
   });
 
-app.listen(PORT, () => console.log(`Running server on port: ${PORT}`));
+const httpsOptions = {
+  key: fs.readFileSync("./server.key"),
+  cert: fs.readFileSync("./server.cert"),
+};
+
+https.createServer(httpsOptions, app).listen(PORT, () => {
+  console.log(`HTTPS Server running on port: ${PORT}`);
+});
